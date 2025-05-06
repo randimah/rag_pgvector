@@ -1,0 +1,6 @@
+langchain-community
+langchain-ollama
+psycopg2-binary
+datasets
+transformers
+deepeval
