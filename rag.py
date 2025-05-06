@@ -3,14 +3,21 @@ import psycopg2
 from langchain_ollama import OllamaEmbeddings
 from langchain_ollama import ChatOllama
 
-conn = psycopg2.connect("dbname=vectordb user=randimah")
+"""
+
+Given the search query, retrieve the context from the vector DB, 
+augment the prompt and call a locally hosted LLM to generate the answer.
+
+"""
+
+conn = psycopg2.connect("dbname=VECTOR_DBNAME user=USER")
 cur = conn.cursor()
 
 ollama_embeddings = OllamaEmbeddings(
     model="mxbai-embed-large",
 )
 
-llm = ChatOllama(model="llama3.2", temperature=0.7,)
+llm = ChatOllama(model="llama3.2", temperature=0.1,)
 
 def search_documents(query, limit=5):
     query_embedding = ollama_embeddings.embed_documents([query])[0]
