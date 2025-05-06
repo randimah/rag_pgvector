@@ -2,8 +2,15 @@
 A RAG implementation with PGVector and Langchain.
 
 ## Prerequisites 
+### VectorDB
 * Postgres SQL server should be installed and running locally
 * Compile and install the pgvector extension https://github.com/pgvector/pgvector
+### ML Models
+* Install Ollama https://ollama.com/
+* Download and run the open source llm model of your choice.  For example 
+  `ollama run llama3.2`
+* Download and run the embedding model of your choice.  For example `ollama 
+run mxbai-embed-large`
 
 ### Setting up the Vector Database and Document Table
 * Go to terminal and enter `psql` - this will initiate PostgreSQL 
@@ -41,9 +48,16 @@ CREATE INDEX ON documents USING hnsw (embedding vector_l2_ops) WITH (m = 16, ef_
 CREATE INDEX ON documents USING hnsw (embedding vector_cosine_ops) WITH (m = 16, ef_construction = 64);
 ```
 ## Setting up the project
-* Once the project is cloned, create a virtual environment and install 
-  requirements.txt `pip install -r requirements.txt`
-* 
+* Clone the repo
+* Create a virtual environment
+* Install `make` with `pip install make`
+* In the terminal run the command `make`. This will install the 
+  requirements given in requirements.txt and run `data_vectorizer` and 
+  `rag` sequentially
+  * `data_vectorizer`: loads the document dataset, split into chunk, 
+    vectorize chunks and insert into documents table in the vector DB
+  * `rag`: Given the search query, retrieve the context from the vector DB, 
+augment the prompt and call a locally hosted LLM to generate the answer.
 
 
 
