@@ -52,12 +52,22 @@ CREATE INDEX ON documents USING hnsw (embedding vector_cosine_ops) WITH (m = 16,
 * Create a virtual environment
 * Install `make` with `pip install make`
 * In the terminal run the command `make`. This will install the 
-  requirements given in requirements.txt and run `data_vectorizer` and 
-  `rag` sequentially
-  * `data_vectorizer`: loads the document dataset, split into chunk, 
+  requirements given in requirements.txt and run `data_vectorizer.py` and 
+  `rag.py` sequentially
+  * `data_vectorizer.py`: loads the document dataset, split into chunk, 
     vectorize chunks and insert into documents table in the vector DB
-  * `rag`: Given the search query, retrieve the context from the vector DB, 
+  * `rag.py`: Given the search query, retrieve the context from the vector DB, 
 augment the prompt and call a locally hosted LLM to generate the answer.
+
+### RAG with DeepEval Evaluation
+You could alternatively run RAG with DeepEval eval evaluation to evaluate 
+the implemented RAG system by running `rag_evaluation.py`. This evaluates 
+the generated response and retrieved context against 5 different RAG 
+metrics by using an *LLM-as-a-judge*.
+
+In order to switch to an open source model hosted via Ollama, run for example
+`deepeval set-ollama deepseek-r1:1.5b` in the terminal.
+
 
 
 
